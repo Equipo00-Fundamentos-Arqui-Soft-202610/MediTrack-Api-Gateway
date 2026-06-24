@@ -1,0 +1,57 @@
+{
+  "Routes": [
+    {
+      "Key": "treatment",
+      "UpstreamPathTemplate": "/treatment/{everything}",
+      "UpstreamHttpMethod": [ "Get", "Post", "Put", "Patch", "Delete" ],
+      "DownstreamPathTemplate": "/{everything}",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        { "Host": "localhost", "Port": 5162 }
+      ]
+    },
+    {
+      "Key": "followup",
+      "UpstreamPathTemplate": "/followup/{everything}",
+      "UpstreamHttpMethod": [ "Get", "Post", "Put", "Patch", "Delete" ],
+      "DownstreamPathTemplate": "/{everything}",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        { "Host": "localhost", "Port": 5267 }
+      ]
+    },
+    {
+      "Key": "appointments",
+      "UpstreamPathTemplate": "/appointments/{everything}",
+      "UpstreamHttpMethod": [ "Get", "Post", "Put", "Patch", "Delete" ],
+      "DownstreamPathTemplate": "/{everything}",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        { "Host": "localhost", "Port": 5186 }
+      ]
+    },
+    {
+      "Key": "analysis",
+      "UpstreamPathTemplate": "/analysis/{everything}",
+      "UpstreamHttpMethod": [ "Get", "Post", "Put", "Patch", "Delete" ],
+      "DownstreamPathTemplate": "/{everything}",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        { "Host": "localhost", "Port": 5188 }
+      ]
+    },
+    {
+      "Key": "reminders",
+      "UpstreamPathTemplate": "/reminders/{everything}",
+      "UpstreamHttpMethod": [ "Get", "Post", "Put", "Patch", "Delete" ],
+      "DownstreamPathTemplate": "/reminders/{everything}",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        { "Host": "localhost", "Port": 5080 }
+      ]
+    }
+  ],
+  "GlobalConfiguration": {
+    "BaseUrl": "http://localhost:5000"
+  }
+}

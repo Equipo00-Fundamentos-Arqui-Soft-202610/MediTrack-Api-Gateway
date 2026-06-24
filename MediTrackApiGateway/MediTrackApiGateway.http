@@ -1,0 +1,6 @@
+@MediTrackApiGateway_HostAddress = http://localhost:5230
+
+GET {{MediTrackApiGateway_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###

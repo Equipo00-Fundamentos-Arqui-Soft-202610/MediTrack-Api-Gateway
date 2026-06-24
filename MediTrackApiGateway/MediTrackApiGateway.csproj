@@ -7,7 +7,16 @@
     </PropertyGroup>
 
     <ItemGroup>
-        <PackageReference Include="Swashbuckle.AspNetCore" Version="6.6.2"/>
+        <PackageReference Include="Ocelot" Version="24.1.0" />
+    </ItemGroup>
+
+    <ItemGroup>
+        <Content Update="ocelot.json">
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </Content>
+        <Content Update="ocelot.Development.json" Condition="Exists('ocelot.Development.json')">
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </Content>
     </ItemGroup>
 
 </Project>

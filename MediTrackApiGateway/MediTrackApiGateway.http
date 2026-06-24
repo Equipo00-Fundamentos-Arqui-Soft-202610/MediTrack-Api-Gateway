@@ -1,6 +1,101 @@
-@MediTrackApiGateway_HostAddress = http://localhost:5230
+@GatewayHost = http://localhost:5000
 
-GET {{MediTrackApiGateway_HostAddress}}/weatherforecast/
+### ── TREATMENT SERVICE (/treatment → :5162) ────────────────────────────────
+
+# Buscar pacientes
+GET {{GatewayHost}}/treatment/api/v1/patients/search?query=juan
+Accept: application/json
+
+###
+
+# Crear receta
+POST {{GatewayHost}}/treatment/api/v1/prescriptions
+Content-Type: application/json
+
+{
+  "patientId": 1,
+  "medications": []
+}
+
+###
+
+# Listar medicamentos de un paciente
+GET {{GatewayHost}}/treatment/api/v1/medications?patientId=1
+Accept: application/json
+
+###
+
+### ── MEDICAL APPOINTMENT SERVICE (/appointments → :5186) ────────────────────
+
+# Agendar cita
+POST {{GatewayHost}}/appointments/api/v1/appointments
+Content-Type: application/json
+
+{
+  "patientId": 1,
+  "doctorId": 2,
+  "scheduledAt": "2026-07-01T10:00:00"
+}
+
+###
+
+# Listar citas de un paciente
+GET {{GatewayHost}}/appointments/api/v1/appointments?patientId=1
+Accept: application/json
+
+###
+
+### ── FOLLOW-UP SERVICE (/followup → :5267) ──────────────────────────────────
+
+# Próxima dosis pendiente
+GET {{GatewayHost}}/followup/api/v1/medications/next-dose?patientId=1
+Accept: application/json
+
+###
+
+# Registrar cumplimiento de medicación
+POST {{GatewayHost}}/followup/api/v1/compliance
+Content-Type: application/json
+
+{
+  "patientId": 1,
+  "medicationId": 1,
+  "takenAt": "2026-06-23T08:00:00"
+}
+
+###
+
+### ── MEDICAL ANALYSIS SERVICE (/analysis → :5188) ───────────────────────────
+
+# Historial clínico con rango de fechas
+GET {{GatewayHost}}/analysis/api/v1/clinical-records?patientId=1&from=2026-01-01&to=2026-06-30
+Accept: application/json
+
+###
+
+# Tendencia de adherencia
+GET {{GatewayHost}}/analysis/api/v1/dashboards/adherence-trend?patientId=1&from=2026-01-01&to=2026-06-30
+Accept: application/json
+
+###
+
+# Listar alertas activas
+GET {{GatewayHost}}/analysis/api/v1/alerts
+Accept: application/json
+
+###
+
+### ── REMINDER SERVICE (/reminders → :5080) ──────────────────────────────────
+# Nota: en producción estos endpoints requieren JWT. En dev usar DisableAuth=true.
+
+# Preferencias de notificación
+GET {{GatewayHost}}/reminders/preferences/patients/1
+Accept: application/json
+
+###
+
+# Recordatorios activos
+GET {{GatewayHost}}/reminders/patients/1
 Accept: application/json
 
 ###

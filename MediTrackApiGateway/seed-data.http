@@ -1,0 +1,337 @@
+@GatewayHost = http://localhost:5000
+
+# =============================================================================
+# SEED DATA — MediTrack Local
+# Ejecutar EN ORDEN. Algunos registros dependen de IDs creados anteriormente.
+# Pacientes: 1 = Carlos Mendoza, 2 = Ana Torres, 3 = Luis García
+#
+# ORDEN:
+#   Treatment 1-3  → crea catálogo (IDs 1,2,3)
+#   Treatment 4-5  → crea recetas  (doseScheduleIds 1,2,3)
+#   Appointment 1-5
+#   Followup 1-5
+#   Analysis 1-5
+#   Reminder 1-5   → independientes, cualquier orden
+# =============================================================================
+
+### [Treatment 1/5] Agregar Metformina al catálogo
+POST {{GatewayHost}}/treatment/api/v1/medication-catalog
+Content-Type: application/json
+
+{
+  "officialName": "Metformina 500mg",
+  "synonyms": "Glucophage, Dimefor",
+  "category": "Antidiabético"
+}
+
+### [Treatment 2/5] Agregar Atorvastatina al catálogo
+POST {{GatewayHost}}/treatment/api/v1/medication-catalog
+Content-Type: application/json
+
+{
+  "officialName": "Atorvastatina 20mg",
+  "synonyms": "Lipitor, Torvast",
+  "category": "Hipolipemiante"
+}
+
+### [Treatment 3/5] Agregar Losartán al catálogo
+POST {{GatewayHost}}/treatment/api/v1/medication-catalog
+Content-Type: application/json
+
+{
+  "officialName": "Losartán 50mg",
+  "synonyms": "Cozaar, Lortaan",
+  "category": "Antihipertensivo"
+}
+
+### [Treatment 4/5] Receta paciente 1 (Carlos) — Metformina catalogId=1 → doseScheduleIds 1,2
+POST {{GatewayHost}}/treatment/api/v1/prescriptions
+Content-Type: application/json
+
+{
+  "patientId": 1,
+  "technicalStaffId": 10,
+  "notes": "Tomar con las comidas. Control en 30 días.",
+  "medications": [
+    {
+      "catalogId": 1,
+      "dose": "500mg",
+      "frequencyHours": 12,
+      "startDate": "2026-06-24T00:00:00",
+      "endDate": "2026-09-24T00:00:00",
+      "stockCount": 60,
+      "stockAlertThreshold": 10,
+      "doseSchedules": [
+        { "scheduledTime": "08:00:00" },
+        { "scheduledTime": "20:00:00" }
+      ]
+    }
+  ]
+}
+
+### [Treatment 5/5] Receta paciente 2 (Ana) — Atorvastatina + Losartán → doseScheduleIds 3,4
+POST {{GatewayHost}}/treatment/api/v1/prescriptions
+Content-Type: application/json
+
+{
+  "patientId": 2,
+  "technicalStaffId": 10,
+  "notes": "Tomar Atorvastatina en la noche. Monitorear presión arterial.",
+  "medications": [
+    {
+      "catalogId": 2,
+      "dose": "20mg",
+      "frequencyHours": 24,
+      "startDate": "2026-06-24T00:00:00",
+      "endDate": "2026-12-24T00:00:00",
+      "stockCount": 30,
+      "stockAlertThreshold": 5,
+      "doseSchedules": [
+        { "scheduledTime": "21:00:00" }
+      ]
+    },
+    {
+      "catalogId": 3,
+      "dose": "50mg",
+      "frequencyHours": 24,
+      "startDate": "2026-06-24T00:00:00",
+      "endDate": "2026-12-24T00:00:00",
+      "stockCount": 30,
+      "stockAlertThreshold": 5,
+      "doseSchedules": [
+        { "scheduledTime": "08:00:00" }
+      ]
+    }
+  ]
+}
+
+### [Appointment 1/5] Cita control diabetológico — Paciente 1 (Carlos)
+POST {{GatewayHost}}/appointments/api/v1/appointments
+Content-Type: application/json
+
+{
+  "patientId": 1,
+  "type": "Control Diabetológico",
+  "scheduledAt": "2026-07-05T09:00:00",
+  "location": "Consultorio 3 — Endocrinología",
+  "notes": "Traer resultados de glucosa en ayunas",
+  "requirements": ["Ayuno de 8 horas", "Traer carnet de vacunación"]
+}
+
+### [Appointment 2/5] Cita cardiológica — Paciente 2 (Ana)
+POST {{GatewayHost}}/appointments/api/v1/appointments
+Content-Type: application/json
+
+{
+  "patientId": 2,
+  "type": "Control Cardiológico",
+  "scheduledAt": "2026-07-08T10:30:00",
+  "location": "Consultorio 5 — Cardiología",
+  "notes": "Control de presión arterial y perfil lipídico",
+  "requirements": ["Traer últimos resultados de laboratorio"]
+}
+
+### [Appointment 3/5] Consulta general — Paciente 3 (Luis)
+POST {{GatewayHost}}/appointments/api/v1/appointments
+Content-Type: application/json
+
+{
+  "patientId": 3,
+  "type": "Consulta General",
+  "scheduledAt": "2026-07-10T08:00:00",
+  "location": "Consultorio 1 — Medicina General",
+  "notes": "Primera consulta del paciente",
+  "requirements": []
+}
+
+### [Appointment 4/5] Examen clínico — Hemoglobina glicosilada para paciente 1
+POST {{GatewayHost}}/appointments/api/v1/clinical-exams
+Content-Type: application/json
+
+{
+  "patientId": 1,
+  "appointmentId": 1,
+  "examType": "Hemoglobina Glicosilada (HbA1c)",
+  "scheduledDate": "2026-07-03T07:00:00",
+  "pickupDate": "2026-07-04T12:00:00"
+}
+
+### [Appointment 5/5] Examen clínico — Perfil lipídico para paciente 2
+POST {{GatewayHost}}/appointments/api/v1/clinical-exams
+Content-Type: application/json
+
+{
+  "patientId": 2,
+  "appointmentId": 2,
+  "examType": "Perfil Lipídico Completo",
+  "scheduledDate": "2026-07-06T07:00:00",
+  "pickupDate": "2026-07-07T12:00:00"
+}
+
+### [Followup 1/5] Paciente 1 tomó su dosis mañana (doseScheduleId=1)
+POST {{GatewayHost}}/followup/api/v1/compliance?patientId=1
+Content-Type: application/json
+
+{
+  "patientId": 1,
+  "doseScheduleId": 1,
+  "status": "taken",
+  "videoUrl": null,
+  "offlineRecordedAt": null
+}
+
+### [Followup 2/5] Paciente 1 tomó su dosis noche (doseScheduleId=2)
+POST {{GatewayHost}}/followup/api/v1/compliance?patientId=1
+Content-Type: application/json
+
+{
+  "patientId": 1,
+  "doseScheduleId": 2,
+  "status": "taken",
+  "videoUrl": null,
+  "offlineRecordedAt": null
+}
+
+### [Followup 3/5] Paciente 2 olvidó su dosis nocturna (doseScheduleId=3)
+POST {{GatewayHost}}/followup/api/v1/compliance?patientId=2
+Content-Type: application/json
+
+{
+  "patientId": 2,
+  "doseScheduleId": 3,
+  "status": "skipped",
+  "videoUrl": null,
+  "offlineRecordedAt": null
+}
+
+### [Followup 4/5] Paciente 1 asistió a su cita (appointmentId=1)
+POST {{GatewayHost}}/followup/api/v1/appointment-compliance?patientId=1
+Content-Type: application/json
+
+{
+  "patientId": 1,
+  "appointmentId": 1,
+  "attended": true,
+  "notes": "Paciente llegó puntual, se realizaron todos los controles"
+}
+
+### [Followup 5/5] Paciente 2 no asistió a su cita (appointmentId=2)
+POST {{GatewayHost}}/followup/api/v1/appointment-compliance?patientId=2
+Content-Type: application/json
+
+{
+  "patientId": 2,
+  "appointmentId": 2,
+  "attended": false,
+  "notes": "Paciente no se presentó, no avisó con anticipación"
+}
+
+### [Analysis 1/5] Historial clínico — Paciente 1 (diabetes tipo 2)
+POST {{GatewayHost}}/analysis/api/v1/clinical-records
+Content-Type: application/json
+
+{
+  "patientId": 1,
+  "recordDate": "2026-06-01T09:00:00",
+  "diagnosis": "Diabetes Mellitus Tipo 2",
+  "notes": "HbA1c: 8.2%. Requiere ajuste de dosis y control nutricional"
+}
+
+### [Analysis 2/5] Historial clínico — Paciente 2 (hipercolesterolemia)
+POST {{GatewayHost}}/analysis/api/v1/clinical-records
+Content-Type: application/json
+
+{
+  "patientId": 2,
+  "recordDate": "2026-06-05T10:00:00",
+  "diagnosis": "Hipercolesterolemia Primaria",
+  "notes": "LDL: 165 mg/dL. Iniciar estatina y dieta hipograsa"
+}
+
+### [Analysis 3/5] Historial clínico — Paciente 3 (hipertensión)
+POST {{GatewayHost}}/analysis/api/v1/clinical-records
+Content-Type: application/json
+
+{
+  "patientId": 3,
+  "recordDate": "2026-06-10T08:30:00",
+  "diagnosis": "Hipertensión Arterial Estadio 1",
+  "notes": "PA: 148/92 mmHg. Iniciar losartán y reducir ingesta de sodio"
+}
+
+### [Analysis 4/5] Alerta de baja adherencia — Paciente 2
+POST {{GatewayHost}}/analysis/api/v1/alerts
+Content-Type: application/json
+
+{
+  "patientId": 2,
+  "severity": "critical",
+  "reason": "Paciente lleva 3 dosis consecutivas sin registrar. Riesgo de descontrol lipídico."
+}
+
+### [Analysis 5/5] Alerta de cita perdida — Paciente 2
+POST {{GatewayHost}}/analysis/api/v1/alerts
+Content-Type: application/json
+
+{
+  "patientId": 2,
+  "severity": "warning",
+  "reason": "Paciente no asistió a control cardiológico programado el 2026-07-08."
+}
+
+### [Reminder 1/5] Preferencias paciente 1 — todas las notificaciones activas
+PUT {{GatewayHost}}/reminders/preferences/patients/1
+Content-Type: application/json
+
+{
+  "soundEnabled": true,
+  "vibrationEnabled": true,
+  "repeatCount": 3,
+  "globalEnabled": true
+}
+
+### [Reminder 2/5] Preferencias paciente 2 — sin sonido
+PUT {{GatewayHost}}/reminders/preferences/patients/2
+Content-Type: application/json
+
+{
+  "soundEnabled": false,
+  "vibrationEnabled": true,
+  "repeatCount": 2,
+  "globalEnabled": true
+}
+
+### [Reminder 3/5] Preferencias paciente 3 — solo sonido
+PUT {{GatewayHost}}/reminders/preferences/patients/3
+Content-Type: application/json
+
+{
+  "soundEnabled": true,
+  "vibrationEnabled": false,
+  "repeatCount": 1,
+  "globalEnabled": true
+}
+
+### [Reminder 4/5] Preferencias paciente 4 — notificaciones desactivadas
+PUT {{GatewayHost}}/reminders/preferences/patients/4
+Content-Type: application/json
+
+{
+  "soundEnabled": false,
+  "vibrationEnabled": false,
+  "repeatCount": 1,
+  "globalEnabled": false
+}
+
+### [Reminder 5/5] Preferencias paciente 5 — máximas repeticiones
+PUT {{GatewayHost}}/reminders/preferences/patients/5
+Content-Type: application/json
+
+{
+  "soundEnabled": true,
+  "vibrationEnabled": true,
+  "repeatCount": 5,
+  "globalEnabled": true
+}
+
+###

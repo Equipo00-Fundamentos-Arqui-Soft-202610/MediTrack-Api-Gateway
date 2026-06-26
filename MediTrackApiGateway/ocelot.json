@@ -1,6 +1,34 @@
 {
   "Routes": [
     {
+      "Key": "identity",
+      "UpstreamPathTemplate": "/identity/{everything}",
+      "UpstreamHttpMethod": [ "Get", "Post", "Put", "Patch", "Delete" ],
+      "DownstreamPathTemplate": "/{everything}",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        { "Host": "localhost", "Port": 5090 }
+      ]
+    },
+    {
+      "Key": "treatment-create-prescription",
+      "UpstreamPathTemplate": "/treatment/api/v1/prescriptions",
+      "UpstreamHttpMethod": [ "Post" ],
+      "DownstreamPathTemplate": "/api/v1/prescriptions",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        { "Host": "localhost", "Port": 5162 }
+      ],
+      "Priority": 2,
+      "AuthenticationOptions": {
+        "AuthenticationProviderKey": "MediTrackBearer",
+        "AllowedScopes": []
+      },
+      "RouteClaimsRequirement": {
+        "role": "TechnicalStaff"
+      }
+    },
+    {
       "Key": "treatment",
       "UpstreamPathTemplate": "/treatment/{everything}",
       "UpstreamHttpMethod": [ "Get", "Post", "Put", "Patch", "Delete" ],
@@ -8,7 +36,12 @@
       "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
         { "Host": "localhost", "Port": 5162 }
-      ]
+      ],
+      "Priority": 1,
+      "AuthenticationOptions": {
+        "AuthenticationProviderKey": "MediTrackBearer",
+        "AllowedScopes": []
+      }
     },
     {
       "Key": "followup",
@@ -18,7 +51,11 @@
       "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
         { "Host": "localhost", "Port": 5267 }
-      ]
+      ],
+      "AuthenticationOptions": {
+        "AuthenticationProviderKey": "MediTrackBearer",
+        "AllowedScopes": []
+      }
     },
     {
       "Key": "appointments",
@@ -28,7 +65,11 @@
       "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
         { "Host": "localhost", "Port": 5186 }
-      ]
+      ],
+      "AuthenticationOptions": {
+        "AuthenticationProviderKey": "MediTrackBearer",
+        "AllowedScopes": []
+      }
     },
     {
       "Key": "analysis",
@@ -38,7 +79,11 @@
       "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
         { "Host": "localhost", "Port": 5188 }
-      ]
+      ],
+      "AuthenticationOptions": {
+        "AuthenticationProviderKey": "MediTrackBearer",
+        "AllowedScopes": []
+      }
     },
     {
       "Key": "reminders",
@@ -48,7 +93,11 @@
       "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
         { "Host": "localhost", "Port": 5080 }
-      ]
+      ],
+      "AuthenticationOptions": {
+        "AuthenticationProviderKey": "MediTrackBearer",
+        "AllowedScopes": []
+      }
     }
   ],
   "GlobalConfiguration": {

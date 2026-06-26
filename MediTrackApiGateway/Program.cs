@@ -27,6 +27,9 @@ var signingKey = jwtSection["Key"]
 builder.Services.AddAuthentication()
     .AddJwtBearer("MediTrackBearer", options =>
     {
+        // Mantener los claims con su nombre original ("role" en vez del URI largo de
+        // Microsoft) para que RouteClaimsRequirement de Ocelot pueda autorizar por rol.
+        options.MapInboundClaims = false;
         options.TokenValidationParameters = new TokenValidationParameters
         {
             ValidateIssuer = true,

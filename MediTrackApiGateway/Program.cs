@@ -16,10 +16,7 @@ builder.Services.AddCors(options =>
         policy.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader());
 });
 
-// JWT authentication: el Gateway es el punto principal de validación y autorización
-// por rol (CON-04, AC-01). Las rutas de ocelot.json referencian este esquema mediante
-// AuthenticationProviderKey = "MediTrackBearer". El secreto y el issuer/audience deben
-// coincidir con los del Identity Service que emite los tokens.
+// JWT authentication
 var jwtSection = builder.Configuration.GetSection("Jwt");
 var signingKey = jwtSection["Key"]
     ?? throw new InvalidOperationException("Falta la clave de firma JWT en 'Jwt:Key'.");
@@ -27,8 +24,7 @@ var signingKey = jwtSection["Key"]
 builder.Services.AddAuthentication()
     .AddJwtBearer("MediTrackBearer", options =>
     {
-        // Mantener los claims con su nombre original ("role" en vez del URI largo de
-        // Microsoft) para que RouteClaimsRequirement de Ocelot pueda autorizar por rol.
+        // Keep original claim names so Ocelot role authorization can read "role"
         options.MapInboundClaims = false;
         options.TokenValidationParameters = new TokenValidationParameters
         {

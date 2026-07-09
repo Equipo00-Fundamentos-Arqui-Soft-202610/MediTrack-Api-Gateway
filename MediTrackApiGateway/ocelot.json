@@ -8,7 +8,12 @@
       "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
         { "Host": "localhost", "Port": 5090 }
-      ]
+      ],
+      "QoSOptions": {
+        "TimeoutValue": 5000,
+        "ExceptionsAllowedBeforeBreaking": 3,
+        "DurationOfBreak": 30000
+      }
     },
     {
       "Key": "treatment-create-prescription",
@@ -26,6 +31,11 @@
       },
       "RouteClaimsRequirement": {
         "role": "TechnicalStaff"
+      },
+      "QoSOptions": {
+        "TimeoutValue": 5000,
+        "ExceptionsAllowedBeforeBreaking": 3,
+        "DurationOfBreak": 30000
       }
     },
     {
@@ -41,6 +51,11 @@
       "AuthenticationOptions": {
         "AuthenticationProviderKey": "MediTrackBearer",
         "AllowedScopes": []
+      },
+      "QoSOptions": {
+        "TimeoutValue": 5000,
+        "ExceptionsAllowedBeforeBreaking": 3,
+        "DurationOfBreak": 30000
       }
     },
     {
@@ -55,6 +70,11 @@
       "AuthenticationOptions": {
         "AuthenticationProviderKey": "MediTrackBearer",
         "AllowedScopes": []
+      },
+      "QoSOptions": {
+        "TimeoutValue": 5000,
+        "ExceptionsAllowedBeforeBreaking": 3,
+        "DurationOfBreak": 30000
       }
     },
     {
@@ -69,6 +89,11 @@
       "AuthenticationOptions": {
         "AuthenticationProviderKey": "MediTrackBearer",
         "AllowedScopes": []
+      },
+      "QoSOptions": {
+        "TimeoutValue": 5000,
+        "ExceptionsAllowedBeforeBreaking": 3,
+        "DurationOfBreak": 30000
       }
     },
     {
@@ -83,6 +108,11 @@
       "AuthenticationOptions": {
         "AuthenticationProviderKey": "MediTrackBearer",
         "AllowedScopes": []
+      },
+      "QoSOptions": {
+        "TimeoutValue": 5000,
+        "ExceptionsAllowedBeforeBreaking": 3,
+        "DurationOfBreak": 30000
       }
     },
     {
@@ -97,6 +127,11 @@
       "AuthenticationOptions": {
         "AuthenticationProviderKey": "MediTrackBearer",
         "AllowedScopes": []
+      },
+      "QoSOptions": {
+        "TimeoutValue": 5000,
+        "ExceptionsAllowedBeforeBreaking": 3,
+        "DurationOfBreak": 30000
       }
     }
   ],

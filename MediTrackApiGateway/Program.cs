@@ -46,6 +46,8 @@ var app = builder.Build();
 
 app.UseCors("AllowAll");
 
+app.UseAuthentication();
+
 await app.UseOcelot();
 
 app.Run();

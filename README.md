@@ -55,6 +55,19 @@ Routes are defined in [`MediTrackApiGateway/ocelot.json`](MediTrackApiGateway/oc
 }
 ```
 
+## Local development secrets
+
+`Jwt:Key` is intentionally left empty in `appsettings.json` — it's shared with
+Identity Service, Reminder-Service, Treatment-service and FollowUp-Service, so
+each developer sets it once on their own machine:
+
+```bash
+dotnet user-secrets set "Jwt:Key" "<ask the team for the shared dev key>" --project MediTrackApiGateway
+```
+
+In production, the same value is set as the `Jwt__Key` environment variable
+on the deploy provider (Render, etc.) — never committed to a file in this repo.
+
 ## Seed data
 
 [`MediTrackApiGateway/seed-data.http`](MediTrackApiGateway/seed-data.http) contains 25 HTTP requests (5 per service) for populating local databases. Execute them in order using the JetBrains HTTP client or the VS Code REST Client extension.

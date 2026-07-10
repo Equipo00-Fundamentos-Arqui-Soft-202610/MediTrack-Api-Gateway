@@ -3,26 +3,47 @@
     {
       "Key": "identity",
       "UpstreamPathTemplate": "/identity/{everything}",
-      "UpstreamHttpMethod": [ "Get", "Post", "Put", "Patch", "Delete" ],
+      "UpstreamHttpMethod": [
+        "Get",
+        "Post",
+        "Put",
+        "Patch",
+        "Delete"
+      ],
       "DownstreamPathTemplate": "/{everything}",
       "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
-        { "Host": "localhost", "Port": 5090 }
+        {
+          "Host": "localhost",
+          "Port": 5090
+        }
       ],
       "QoSOptions": {
         "TimeoutValue": 5000,
         "ExceptionsAllowedBeforeBreaking": 3,
         "DurationOfBreak": 30000
+      },
+      "RateLimitOptions": {
+        "ClientWhitelist": [],
+        "EnableRateLimiting": true,
+        "Period": "1m",
+        "PeriodTimespan": 30,
+        "Limit": 100
       }
     },
     {
       "Key": "treatment-create-prescription",
       "UpstreamPathTemplate": "/treatment/api/v1/prescriptions",
-      "UpstreamHttpMethod": [ "Post" ],
+      "UpstreamHttpMethod": [
+        "Post"
+      ],
       "DownstreamPathTemplate": "/api/v1/prescriptions",
       "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
-        { "Host": "localhost", "Port": 5162 }
+        {
+          "Host": "localhost",
+          "Port": 5162
+        }
       ],
       "Priority": 2,
       "AuthenticationOptions": {
@@ -36,16 +57,32 @@
         "TimeoutValue": 5000,
         "ExceptionsAllowedBeforeBreaking": 3,
         "DurationOfBreak": 30000
+      },
+      "RateLimitOptions": {
+        "ClientWhitelist": [],
+        "EnableRateLimiting": true,
+        "Period": "1m",
+        "PeriodTimespan": 30,
+        "Limit": 100
       }
     },
     {
       "Key": "treatment",
       "UpstreamPathTemplate": "/treatment/{everything}",
-      "UpstreamHttpMethod": [ "Get", "Post", "Put", "Patch", "Delete" ],
+      "UpstreamHttpMethod": [
+        "Get",
+        "Post",
+        "Put",
+        "Patch",
+        "Delete"
+      ],
       "DownstreamPathTemplate": "/{everything}",
       "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
-        { "Host": "localhost", "Port": 5162 }
+        {
+          "Host": "localhost",
+          "Port": 5162
+        }
       ],
       "Priority": 1,
       "AuthenticationOptions": {
@@ -56,16 +93,32 @@
         "TimeoutValue": 5000,
         "ExceptionsAllowedBeforeBreaking": 3,
         "DurationOfBreak": 30000
+      },
+      "RateLimitOptions": {
+        "ClientWhitelist": [],
+        "EnableRateLimiting": true,
+        "Period": "1m",
+        "PeriodTimespan": 30,
+        "Limit": 100
       }
     },
     {
       "Key": "followup",
       "UpstreamPathTemplate": "/followup/{everything}",
-      "UpstreamHttpMethod": [ "Get", "Post", "Put", "Patch", "Delete" ],
+      "UpstreamHttpMethod": [
+        "Get",
+        "Post",
+        "Put",
+        "Patch",
+        "Delete"
+      ],
       "DownstreamPathTemplate": "/{everything}",
       "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
-        { "Host": "localhost", "Port": 5267 }
+        {
+          "Host": "localhost",
+          "Port": 5267
+        }
       ],
       "AuthenticationOptions": {
         "AuthenticationProviderKey": "MediTrackBearer",
@@ -75,16 +128,32 @@
         "TimeoutValue": 5000,
         "ExceptionsAllowedBeforeBreaking": 3,
         "DurationOfBreak": 30000
+      },
+      "RateLimitOptions": {
+        "ClientWhitelist": [],
+        "EnableRateLimiting": true,
+        "Period": "1m",
+        "PeriodTimespan": 30,
+        "Limit": 100
       }
     },
     {
       "Key": "appointments",
       "UpstreamPathTemplate": "/appointments/{everything}",
-      "UpstreamHttpMethod": [ "Get", "Post", "Put", "Patch", "Delete" ],
+      "UpstreamHttpMethod": [
+        "Get",
+        "Post",
+        "Put",
+        "Patch",
+        "Delete"
+      ],
       "DownstreamPathTemplate": "/{everything}",
       "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
-        { "Host": "localhost", "Port": 5186 }
+        {
+          "Host": "localhost",
+          "Port": 5186
+        }
       ],
       "AuthenticationOptions": {
         "AuthenticationProviderKey": "MediTrackBearer",
@@ -94,16 +163,32 @@
         "TimeoutValue": 5000,
         "ExceptionsAllowedBeforeBreaking": 3,
         "DurationOfBreak": 30000
+      },
+      "RateLimitOptions": {
+        "ClientWhitelist": [],
+        "EnableRateLimiting": true,
+        "Period": "1m",
+        "PeriodTimespan": 30,
+        "Limit": 100
       }
     },
     {
       "Key": "analysis",
       "UpstreamPathTemplate": "/analysis/{everything}",
-      "UpstreamHttpMethod": [ "Get", "Post", "Put", "Patch", "Delete" ],
+      "UpstreamHttpMethod": [
+        "Get",
+        "Post",
+        "Put",
+        "Patch",
+        "Delete"
+      ],
       "DownstreamPathTemplate": "/{everything}",
       "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
-        { "Host": "localhost", "Port": 5188 }
+        {
+          "Host": "localhost",
+          "Port": 5188
+        }
       ],
       "AuthenticationOptions": {
         "AuthenticationProviderKey": "MediTrackBearer",
@@ -113,16 +198,32 @@
         "TimeoutValue": 5000,
         "ExceptionsAllowedBeforeBreaking": 3,
         "DurationOfBreak": 30000
+      },
+      "RateLimitOptions": {
+        "ClientWhitelist": [],
+        "EnableRateLimiting": true,
+        "Period": "1m",
+        "PeriodTimespan": 30,
+        "Limit": 100
       }
     },
     {
       "Key": "reminders",
       "UpstreamPathTemplate": "/reminders/{everything}",
-      "UpstreamHttpMethod": [ "Get", "Post", "Put", "Patch", "Delete" ],
+      "UpstreamHttpMethod": [
+        "Get",
+        "Post",
+        "Put",
+        "Patch",
+        "Delete"
+      ],
       "DownstreamPathTemplate": "/reminders/{everything}",
       "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
-        { "Host": "localhost", "Port": 5080 }
+        {
+          "Host": "localhost",
+          "Port": 5080
+        }
       ],
       "AuthenticationOptions": {
         "AuthenticationProviderKey": "MediTrackBearer",
@@ -132,10 +233,23 @@
         "TimeoutValue": 5000,
         "ExceptionsAllowedBeforeBreaking": 3,
         "DurationOfBreak": 30000
+      },
+      "RateLimitOptions": {
+        "ClientWhitelist": [],
+        "EnableRateLimiting": true,
+        "Period": "1m",
+        "PeriodTimespan": 30,
+        "Limit": 100
       }
     }
   ],
   "GlobalConfiguration": {
-    "BaseUrl": "http://localhost:5000"
+    "BaseUrl": "http://localhost:5000",
+    "RateLimitOptions": {
+      "DisableRateLimitHeaders": false,
+      "QuotaExceededMessage": "Se excedi\u00f3 el l\u00edmite de solicitudes. Intenta de nuevo en unos segundos.",
+      "HttpStatusCode": 429,
+      "ClientIdHeader": "ClientId"
+    }
   }
 }

@@ -103,6 +103,98 @@
       }
     },
     {
+      "Key": "followup-compliance-pending-validation",
+      "UpstreamPathTemplate": "/followup/api/v1/compliance/pending-validation",
+      "UpstreamHttpMethod": [ "Get" ],
+      "DownstreamPathTemplate": "/api/v1/compliance/pending-validation",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        { "Host": "localhost", "Port": 5267 }
+      ],
+      "Priority": 2,
+      "AuthenticationOptions": {
+        "AuthenticationProviderKey": "MediTrackBearer",
+        "AllowedScopes": []
+      },
+      "RouteClaimsRequirement": {
+        "role": "TechnicalStaff"
+      },
+      "QoSOptions": {
+        "TimeoutValue": 5000,
+        "ExceptionsAllowedBeforeBreaking": 3,
+        "DurationOfBreak": 30000
+      }
+    },
+    {
+      "Key": "followup-compliance-video",
+      "UpstreamPathTemplate": "/followup/api/v1/compliance/{id}/video",
+      "UpstreamHttpMethod": [ "Get" ],
+      "DownstreamPathTemplate": "/api/v1/compliance/{id}/video",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        { "Host": "localhost", "Port": 5267 }
+      ],
+      "Priority": 2,
+      "AuthenticationOptions": {
+        "AuthenticationProviderKey": "MediTrackBearer",
+        "AllowedScopes": []
+      },
+      "RouteClaimsRequirement": {
+        "role": "TechnicalStaff"
+      },
+      "QoSOptions": {
+        "TimeoutValue": 5000,
+        "ExceptionsAllowedBeforeBreaking": 3,
+        "DurationOfBreak": 30000
+      }
+    },
+    {
+      "Key": "followup-compliance-approve",
+      "UpstreamPathTemplate": "/followup/api/v1/compliance/{id}/approve",
+      "UpstreamHttpMethod": [ "Patch" ],
+      "DownstreamPathTemplate": "/api/v1/compliance/{id}/approve",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        { "Host": "localhost", "Port": 5267 }
+      ],
+      "Priority": 2,
+      "AuthenticationOptions": {
+        "AuthenticationProviderKey": "MediTrackBearer",
+        "AllowedScopes": []
+      },
+      "RouteClaimsRequirement": {
+        "role": "TechnicalStaff"
+      },
+      "QoSOptions": {
+        "TimeoutValue": 5000,
+        "ExceptionsAllowedBeforeBreaking": 3,
+        "DurationOfBreak": 30000
+      }
+    },
+    {
+      "Key": "followup-compliance-reject",
+      "UpstreamPathTemplate": "/followup/api/v1/compliance/{id}/reject",
+      "UpstreamHttpMethod": [ "Patch" ],
+      "DownstreamPathTemplate": "/api/v1/compliance/{id}/reject",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        { "Host": "localhost", "Port": 5267 }
+      ],
+      "Priority": 2,
+      "AuthenticationOptions": {
+        "AuthenticationProviderKey": "MediTrackBearer",
+        "AllowedScopes": []
+      },
+      "RouteClaimsRequirement": {
+        "role": "TechnicalStaff"
+      },
+      "QoSOptions": {
+        "TimeoutValue": 5000,
+        "ExceptionsAllowedBeforeBreaking": 3,
+        "DurationOfBreak": 30000
+      }
+    },
+    {
       "Key": "followup",
       "UpstreamPathTemplate": "/followup/{everything}",
       "UpstreamHttpMethod": [

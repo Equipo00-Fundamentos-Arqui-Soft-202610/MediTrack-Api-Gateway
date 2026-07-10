@@ -248,8 +248,7 @@
     "RateLimitOptions": {
       "DisableRateLimitHeaders": false,
       "QuotaExceededMessage": "Se excedi\u00f3 el l\u00edmite de solicitudes. Intenta de nuevo en unos segundos.",
-      "HttpStatusCode": 429,
-      "ClientIdHeader": "ClientId"
+      "HttpStatusCode": 429
     }
   }
 }

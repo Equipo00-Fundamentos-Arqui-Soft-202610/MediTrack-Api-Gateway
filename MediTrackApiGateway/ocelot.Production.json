@@ -1,22 +1,14 @@
 {
+  "_comment": "Reemplazar cada Host 'CHANGE_ME_*' por el hostname real asignado por el proveedor de deploy (p. ej. Render) antes de desplegar. Los puertos ya reflejan lo que expone cada Dockerfile en producción -- OJO: reminders usa 8080 (su contenedor), no 5080 (el perfil de 'dotnet run' local).",
   "Routes": [
     {
       "Key": "identity",
       "UpstreamPathTemplate": "/identity/{everything}",
-      "UpstreamHttpMethod": [
-        "Get",
-        "Post",
-        "Put",
-        "Patch",
-        "Delete"
-      ],
+      "UpstreamHttpMethod": [ "Get", "Post", "Put", "Patch", "Delete" ],
       "DownstreamPathTemplate": "/{everything}",
-      "DownstreamScheme": "http",
+      "DownstreamScheme": "https",
       "DownstreamHostAndPorts": [
-        {
-          "Host": "localhost",
-          "Port": 5090
-        }
+        { "Host": "meditrack-identity-service.onrender.com", "Port": 443 }
       ],
       "QoSOptions": {
         "TimeoutValue": 5000,
@@ -34,16 +26,11 @@
     {
       "Key": "treatment-create-prescription",
       "UpstreamPathTemplate": "/treatment/api/v1/prescriptions",
-      "UpstreamHttpMethod": [
-        "Post"
-      ],
+      "UpstreamHttpMethod": [ "Post" ],
       "DownstreamPathTemplate": "/api/v1/prescriptions",
-      "DownstreamScheme": "http",
+      "DownstreamScheme": "https",
       "DownstreamHostAndPorts": [
-        {
-          "Host": "localhost",
-          "Port": 5162
-        }
+        { "Host": "meditrack-treatment-service.onrender.com", "Port": 443 }
       ],
       "Priority": 2,
       "AuthenticationOptions": {
@@ -69,20 +56,11 @@
     {
       "Key": "treatment",
       "UpstreamPathTemplate": "/treatment/{everything}",
-      "UpstreamHttpMethod": [
-        "Get",
-        "Post",
-        "Put",
-        "Patch",
-        "Delete"
-      ],
+      "UpstreamHttpMethod": [ "Get", "Post", "Put", "Patch", "Delete" ],
       "DownstreamPathTemplate": "/{everything}",
-      "DownstreamScheme": "http",
+      "DownstreamScheme": "https",
       "DownstreamHostAndPorts": [
-        {
-          "Host": "localhost",
-          "Port": 5162
-        }
+        { "Host": "meditrack-treatment-service.onrender.com", "Port": 443 }
       ],
       "Priority": 1,
       "AuthenticationOptions": {
@@ -105,20 +83,11 @@
     {
       "Key": "followup",
       "UpstreamPathTemplate": "/followup/{everything}",
-      "UpstreamHttpMethod": [
-        "Get",
-        "Post",
-        "Put",
-        "Patch",
-        "Delete"
-      ],
+      "UpstreamHttpMethod": [ "Get", "Post", "Put", "Patch", "Delete" ],
       "DownstreamPathTemplate": "/{everything}",
-      "DownstreamScheme": "http",
+      "DownstreamScheme": "https",
       "DownstreamHostAndPorts": [
-        {
-          "Host": "localhost",
-          "Port": 5267
-        }
+        { "Host": "meditrack-followup-service.onrender.com", "Port": 443 }
       ],
       "AuthenticationOptions": {
         "AuthenticationProviderKey": "MediTrackBearer",
@@ -140,20 +109,11 @@
     {
       "Key": "appointments",
       "UpstreamPathTemplate": "/appointments/{everything}",
-      "UpstreamHttpMethod": [
-        "Get",
-        "Post",
-        "Put",
-        "Patch",
-        "Delete"
-      ],
+      "UpstreamHttpMethod": [ "Get", "Post", "Put", "Patch", "Delete" ],
       "DownstreamPathTemplate": "/{everything}",
-      "DownstreamScheme": "http",
+      "DownstreamScheme": "https",
       "DownstreamHostAndPorts": [
-        {
-          "Host": "localhost",
-          "Port": 5186
-        }
+        { "Host": "meditrack-appointment-service.onrender.com", "Port": 443 }
       ],
       "AuthenticationOptions": {
         "AuthenticationProviderKey": "MediTrackBearer",
@@ -175,20 +135,11 @@
     {
       "Key": "analysis",
       "UpstreamPathTemplate": "/analysis/{everything}",
-      "UpstreamHttpMethod": [
-        "Get",
-        "Post",
-        "Put",
-        "Patch",
-        "Delete"
-      ],
+      "UpstreamHttpMethod": [ "Get", "Post", "Put", "Patch", "Delete" ],
       "DownstreamPathTemplate": "/{everything}",
-      "DownstreamScheme": "http",
+      "DownstreamScheme": "https",
       "DownstreamHostAndPorts": [
-        {
-          "Host": "localhost",
-          "Port": 5188
-        }
+        { "Host": "meditrack-analysis-service.onrender.com", "Port": 443 }
       ],
       "AuthenticationOptions": {
         "AuthenticationProviderKey": "MediTrackBearer",
@@ -210,20 +161,11 @@
     {
       "Key": "reminders",
       "UpstreamPathTemplate": "/reminders/{everything}",
-      "UpstreamHttpMethod": [
-        "Get",
-        "Post",
-        "Put",
-        "Patch",
-        "Delete"
-      ],
+      "UpstreamHttpMethod": [ "Get", "Post", "Put", "Patch", "Delete" ],
       "DownstreamPathTemplate": "/reminders/{everything}",
-      "DownstreamScheme": "http",
+      "DownstreamScheme": "https",
       "DownstreamHostAndPorts": [
-        {
-          "Host": "localhost",
-          "Port": 5080
-        }
+        { "Host": "meditrack-reminder-service.onrender.com", "Port": 443 }
       ],
       "AuthenticationOptions": {
         "AuthenticationProviderKey": "MediTrackBearer",
@@ -244,10 +186,10 @@
     }
   ],
   "GlobalConfiguration": {
-    "BaseUrl": "http://localhost:5000",
+    "BaseUrl": "https://meditrack-gateway.onrender.com",
     "RateLimitOptions": {
       "DisableRateLimitHeaders": false,
-      "QuotaExceededMessage": "Se excedi\u00f3 el l\u00edmite de solicitudes. Intenta de nuevo en unos segundos.",
+      "QuotaExceededMessage": "Se excedió el límite de solicitudes. Intenta de nuevo en unos segundos.",
       "HttpStatusCode": 429,
       "ClientIdHeader": "ClientId"
     }

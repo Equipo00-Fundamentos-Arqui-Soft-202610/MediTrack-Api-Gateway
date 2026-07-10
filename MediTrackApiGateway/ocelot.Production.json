@@ -1,0 +1,197 @@
+{
+  "_comment": "Reemplazar cada Host 'CHANGE_ME_*' por el hostname real asignado por el proveedor de deploy (p. ej. Render) antes de desplegar. Los puertos ya reflejan lo que expone cada Dockerfile en producción -- OJO: reminders usa 8080 (su contenedor), no 5080 (el perfil de 'dotnet run' local).",
+  "Routes": [
+    {
+      "Key": "identity",
+      "UpstreamPathTemplate": "/identity/{everything}",
+      "UpstreamHttpMethod": [ "Get", "Post", "Put", "Patch", "Delete" ],
+      "DownstreamPathTemplate": "/{everything}",
+      "DownstreamScheme": "https",
+      "DownstreamHostAndPorts": [
+        { "Host": "meditrack-identity-service.onrender.com", "Port": 443 }
+      ],
+      "QoSOptions": {
+        "TimeoutValue": 5000,
+        "ExceptionsAllowedBeforeBreaking": 3,
+        "DurationOfBreak": 30000
+      },
+      "RateLimitOptions": {
+        "ClientWhitelist": [],
+        "EnableRateLimiting": true,
+        "Period": "1m",
+        "PeriodTimespan": 30,
+        "Limit": 100
+      }
+    },
+    {
+      "Key": "treatment-create-prescription",
+      "UpstreamPathTemplate": "/treatment/api/v1/prescriptions",
+      "UpstreamHttpMethod": [ "Post" ],
+      "DownstreamPathTemplate": "/api/v1/prescriptions",
+      "DownstreamScheme": "https",
+      "DownstreamHostAndPorts": [
+        { "Host": "meditrack-treatment-service.onrender.com", "Port": 443 }
+      ],
+      "Priority": 2,
+      "AuthenticationOptions": {
+        "AuthenticationProviderKey": "MediTrackBearer",
+        "AllowedScopes": []
+      },
+      "RouteClaimsRequirement": {
+        "role": "TechnicalStaff"
+      },
+      "QoSOptions": {
+        "TimeoutValue": 5000,
+        "ExceptionsAllowedBeforeBreaking": 3,
+        "DurationOfBreak": 30000
+      },
+      "RateLimitOptions": {
+        "ClientWhitelist": [],
+        "EnableRateLimiting": true,
+        "Period": "1m",
+        "PeriodTimespan": 30,
+        "Limit": 100
+      }
+    },
+    {
+      "Key": "treatment",
+      "UpstreamPathTemplate": "/treatment/{everything}",
+      "UpstreamHttpMethod": [ "Get", "Post", "Put", "Patch", "Delete" ],
+      "DownstreamPathTemplate": "/{everything}",
+      "DownstreamScheme": "https",
+      "DownstreamHostAndPorts": [
+        { "Host": "meditrack-treatment-service.onrender.com", "Port": 443 }
+      ],
+      "Priority": 1,
+      "AuthenticationOptions": {
+        "AuthenticationProviderKey": "MediTrackBearer",
+        "AllowedScopes": []
+      },
+      "QoSOptions": {
+        "TimeoutValue": 5000,
+        "ExceptionsAllowedBeforeBreaking": 3,
+        "DurationOfBreak": 30000
+      },
+      "RateLimitOptions": {
+        "ClientWhitelist": [],
+        "EnableRateLimiting": true,
+        "Period": "1m",
+        "PeriodTimespan": 30,
+        "Limit": 100
+      }
+    },
+    {
+      "Key": "followup",
+      "UpstreamPathTemplate": "/followup/{everything}",
+      "UpstreamHttpMethod": [ "Get", "Post", "Put", "Patch", "Delete" ],
+      "DownstreamPathTemplate": "/{everything}",
+      "DownstreamScheme": "https",
+      "DownstreamHostAndPorts": [
+        { "Host": "meditrack-followup-service.onrender.com", "Port": 443 }
+      ],
+      "AuthenticationOptions": {
+        "AuthenticationProviderKey": "MediTrackBearer",
+        "AllowedScopes": []
+      },
+      "QoSOptions": {
+        "TimeoutValue": 5000,
+        "ExceptionsAllowedBeforeBreaking": 3,
+        "DurationOfBreak": 30000
+      },
+      "RateLimitOptions": {
+        "ClientWhitelist": [],
+        "EnableRateLimiting": true,
+        "Period": "1m",
+        "PeriodTimespan": 30,
+        "Limit": 100
+      }
+    },
+    {
+      "Key": "appointments",
+      "UpstreamPathTemplate": "/appointments/{everything}",
+      "UpstreamHttpMethod": [ "Get", "Post", "Put", "Patch", "Delete" ],
+      "DownstreamPathTemplate": "/{everything}",
+      "DownstreamScheme": "https",
+      "DownstreamHostAndPorts": [
+        { "Host": "meditrack-appointment-service.onrender.com", "Port": 443 }
+      ],
+      "AuthenticationOptions": {
+        "AuthenticationProviderKey": "MediTrackBearer",
+        "AllowedScopes": []
+      },
+      "QoSOptions": {
+        "TimeoutValue": 5000,
+        "ExceptionsAllowedBeforeBreaking": 3,
+        "DurationOfBreak": 30000
+      },
+      "RateLimitOptions": {
+        "ClientWhitelist": [],
+        "EnableRateLimiting": true,
+        "Period": "1m",
+        "PeriodTimespan": 30,
+        "Limit": 100
+      }
+    },
+    {
+      "Key": "analysis",
+      "UpstreamPathTemplate": "/analysis/{everything}",
+      "UpstreamHttpMethod": [ "Get", "Post", "Put", "Patch", "Delete" ],
+      "DownstreamPathTemplate": "/{everything}",
+      "DownstreamScheme": "https",
+      "DownstreamHostAndPorts": [
+        { "Host": "meditrack-analysis-service.onrender.com", "Port": 443 }
+      ],
+      "AuthenticationOptions": {
+        "AuthenticationProviderKey": "MediTrackBearer",
+        "AllowedScopes": []
+      },
+      "QoSOptions": {
+        "TimeoutValue": 5000,
+        "ExceptionsAllowedBeforeBreaking": 3,
+        "DurationOfBreak": 30000
+      },
+      "RateLimitOptions": {
+        "ClientWhitelist": [],
+        "EnableRateLimiting": true,
+        "Period": "1m",
+        "PeriodTimespan": 30,
+        "Limit": 100
+      }
+    },
+    {
+      "Key": "reminders",
+      "UpstreamPathTemplate": "/reminders/{everything}",
+      "UpstreamHttpMethod": [ "Get", "Post", "Put", "Patch", "Delete" ],
+      "DownstreamPathTemplate": "/reminders/{everything}",
+      "DownstreamScheme": "https",
+      "DownstreamHostAndPorts": [
+        { "Host": "meditrack-reminder-service.onrender.com", "Port": 443 }
+      ],
+      "AuthenticationOptions": {
+        "AuthenticationProviderKey": "MediTrackBearer",
+        "AllowedScopes": []
+      },
+      "QoSOptions": {
+        "TimeoutValue": 5000,
+        "ExceptionsAllowedBeforeBreaking": 3,
+        "DurationOfBreak": 30000
+      },
+      "RateLimitOptions": {
+        "ClientWhitelist": [],
+        "EnableRateLimiting": true,
+        "Period": "1m",
+        "PeriodTimespan": 30,
+        "Limit": 100
+      }
+    }
+  ],
+  "GlobalConfiguration": {
+    "BaseUrl": "https://meditrack-gateway.onrender.com",
+    "RateLimitOptions": {
+      "DisableRateLimitHeaders": false,
+      "QuotaExceededMessage": "Se excedió el límite de solicitudes. Intenta de nuevo en unos segundos.",
+      "HttpStatusCode": 429,
+      "ClientIdHeader": "ClientId"
+    }
+  }
+}

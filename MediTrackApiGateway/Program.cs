@@ -59,6 +59,27 @@ app.UseCors("MediTrackClients");
 
 app.UseAuthentication();
 
-await app.UseOcelot();
+// Ocelot's rate limiter requires a ClientId header to bucket requests per client --
+// it has no built-in IP fallback (by design, see https://ocelot.readthedocs.io/en/latest/features/ratelimiting.html).
+// This assigns ClientId = caller IP before the rate limiting middleware runs, so
+// per-client throttling works without requiring API keys from Web/Mobile.
+var pipelineConfiguration = new Ocelot.Middleware.OcelotPipelineConfiguration
+{
+    PreErrorResponderMiddleware = async (context, next) =>
+    {
+        if (!context.Request.Headers.ContainsKey("ClientId"))
+        {
+            var forwardedFor = context.Request.Headers["X-Forwarded-For"].ToString();
+            var clientIp = !string.IsNullOrWhiteSpace(forwardedFor)
+                ? forwardedFor.Split(',')[0].Trim()
+                : context.Connection.RemoteIpAddress?.ToString() ?? "unknown";
+            context.Request.Headers["ClientId"] = clientIp;
+        }
+
+        await next.Invoke();
+    }
+};
+
+await app.UseOcelot(pipelineConfiguration);
 
 app.Run();

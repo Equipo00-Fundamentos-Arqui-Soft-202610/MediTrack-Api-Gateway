@@ -11,7 +11,7 @@
         { "Host": "meditrack-identity-service.onrender.com", "Port": 443 }
       ],
       "QoSOptions": {
-        "TimeoutValue": 5000,
+        "TimeoutValue": 20000,
         "ExceptionsAllowedBeforeBreaking": 3,
         "DurationOfBreak": 30000
       },
@@ -41,7 +41,7 @@
         "role": "TechnicalStaff"
       },
       "QoSOptions": {
-        "TimeoutValue": 5000,
+        "TimeoutValue": 20000,
         "ExceptionsAllowedBeforeBreaking": 3,
         "DurationOfBreak": 30000
       },
@@ -68,7 +68,7 @@
         "AllowedScopes": []
       },
       "QoSOptions": {
-        "TimeoutValue": 5000,
+        "TimeoutValue": 20000,
         "ExceptionsAllowedBeforeBreaking": 3,
         "DurationOfBreak": 30000
       },
@@ -94,7 +94,7 @@
         "AllowedScopes": []
       },
       "QoSOptions": {
-        "TimeoutValue": 5000,
+        "TimeoutValue": 20000,
         "ExceptionsAllowedBeforeBreaking": 3,
         "DurationOfBreak": 30000
       },
@@ -120,7 +120,7 @@
         "AllowedScopes": []
       },
       "QoSOptions": {
-        "TimeoutValue": 5000,
+        "TimeoutValue": 20000,
         "ExceptionsAllowedBeforeBreaking": 3,
         "DurationOfBreak": 30000
       },
@@ -146,7 +146,7 @@
         "AllowedScopes": []
       },
       "QoSOptions": {
-        "TimeoutValue": 5000,
+        "TimeoutValue": 20000,
         "ExceptionsAllowedBeforeBreaking": 3,
         "DurationOfBreak": 30000
       },
@@ -172,7 +172,7 @@
         "AllowedScopes": []
       },
       "QoSOptions": {
-        "TimeoutValue": 5000,
+        "TimeoutValue": 20000,
         "ExceptionsAllowedBeforeBreaking": 3,
         "DurationOfBreak": 30000
       },

@@ -268,6 +268,13 @@
         "TimeoutValue": 5000,
         "ExceptionsAllowedBeforeBreaking": 3,
         "DurationOfBreak": 30000
+      },
+      "RateLimitOptions": {
+        "ClientWhitelist": [],
+        "EnableRateLimiting": true,
+        "Period": "1m",
+        "PeriodTimespan": 30,
+        "Limit": 60
       }
     },
     {
@@ -296,6 +303,13 @@
         "TimeoutValue": 5000,
         "ExceptionsAllowedBeforeBreaking": 3,
         "DurationOfBreak": 30000
+      },
+      "RateLimitOptions": {
+        "ClientWhitelist": [],
+        "EnableRateLimiting": true,
+        "Period": "1m",
+        "PeriodTimespan": 30,
+        "Limit": 60
       }
     },
     {
@@ -324,6 +338,13 @@
         "TimeoutValue": 5000,
         "ExceptionsAllowedBeforeBreaking": 3,
         "DurationOfBreak": 30000
+      },
+      "RateLimitOptions": {
+        "ClientWhitelist": [],
+        "EnableRateLimiting": true,
+        "Period": "1m",
+        "PeriodTimespan": 30,
+        "Limit": 60
       }
     },
     {
@@ -352,6 +373,13 @@
         "TimeoutValue": 5000,
         "ExceptionsAllowedBeforeBreaking": 3,
         "DurationOfBreak": 30000
+      },
+      "RateLimitOptions": {
+        "ClientWhitelist": [],
+        "EnableRateLimiting": true,
+        "Period": "1m",
+        "PeriodTimespan": 30,
+        "Limit": 60
       }
     }
   ],
